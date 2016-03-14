@@ -1,0 +1,254 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:wbs.certification:"
+msgid "Certification \"%s\" must be in draft state in order to be deleted."
+msgstr ""
+"La certificación \"%s\" debe estar en estado borrador para poderla eliminar."
+
+msgctxt "field:sale.configuration,certification_sequence:"
+msgid "Certification Sequence"
+msgstr "Sequencia certificación"
+
+msgctxt "field:sale.configuration.company,certification_sequence:"
+msgid "Work Breakdown Structure Sequence"
+msgstr "Sequencia Estructura de proyecto"
+
+msgctxt "field:wbs,certification_lines:"
+msgid "Certification Lines"
+msgstr "Lineas certificación"
+
+msgctxt "field:wbs,certifications:"
+msgid "Certifications"
+msgstr "Certificaciones"
+
+msgctxt "field:wbs,certified_quantity:"
+msgid "Certified Quantity"
+msgstr "Cantidad certificada"
+
+msgctxt "field:wbs,progress:"
+msgid "Progress"
+msgstr "Progreso"
+
+msgctxt "field:wbs.certification,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:wbs.certification,create_date:"
+msgid "Create Date"
+msgstr "Fecha de creación"
+
+msgctxt "field:wbs.certification,create_uid:"
+msgid "Create User"
+msgstr "Usuario de creación"
+
+msgctxt "field:wbs.certification,date:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "field:wbs.certification,id:"
+msgid "ID"
+msgstr "Identificador"
+
+msgctxt "field:wbs.certification,lines:"
+msgid "Lines"
+msgstr "Líneas"
+
+msgctxt "field:wbs.certification,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:wbs.certification,party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "field:wbs.certification,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:wbs.certification,state:"
+msgid "State"
+msgstr "Estado"
+
+msgctxt "field:wbs.certification,wbs:"
+msgid "Work Breakdown Structure"
+msgstr "Estructura de proyecto"
+
+msgctxt "field:wbs.certification,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:wbs.certification,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:wbs.certification.line,certification:"
+msgid "Certification"
+msgstr "Certificación"
+
+msgctxt "field:wbs.certification.line,children:"
+msgid "Children"
+msgstr "Hijos"
+
+msgctxt "field:wbs.certification.line,create_date:"
+msgid "Create Date"
+msgstr "Fecha de creación"
+
+msgctxt "field:wbs.certification.line,create_uid:"
+msgid "Create User"
+msgstr "Usuario de creación"
+
+msgctxt "field:wbs.certification.line,id:"
+msgid "ID"
+msgstr "Identificador"
+
+msgctxt "field:wbs.certification.line,left:"
+msgid "Left"
+msgstr "Izquierda"
+
+msgctxt "field:wbs.certification.line,parent:"
+msgid "Parent"
+msgstr "Padre"
+
+msgctxt "field:wbs.certification.line,quantity:"
+msgid "Quantity"
+msgstr "Cantidad"
+
+msgctxt "field:wbs.certification.line,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:wbs.certification.line,right:"
+msgid "Right"
+msgstr "Derecha"
+
+msgctxt "field:wbs.certification.line,wbs:"
+msgid "WBS"
+msgstr "Estructura de proyecto"
+
+msgctxt "field:wbs.certification.line,wbs_product:"
+msgid "Product"
+msgstr "Producto"
+
+msgctxt "field:wbs.certification.line,wbs_quantity:"
+msgid "WBS Quantity"
+msgstr "Cantidad estructura proyecto"
+
+msgctxt "field:wbs.certification.line,wbs_unit:"
+msgid "Unit"
+msgstr "Unidad"
+
+msgctxt "field:wbs.certification.line,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:wbs.certification.line,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "model:ir.action,name:act_certification"
+msgid "Certifications"
+msgstr "Certificaciones"
+
+msgctxt "model:ir.action,name:act_certification_line"
+msgid "Certification Line"
+msgstr "Linea certificacion"
+
+msgctxt "model:ir.action.act_window.domain,name:act_certification_domain_all"
+msgid "All"
+msgstr "Todos"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_certification_domain_draft"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_certification_domain_proposal"
+msgid "Proposal"
+msgstr "Propuesta"
+
+msgctxt "model:ir.sequence,name:sequence_certification"
+msgid "Certification"
+msgstr "Certificación"
+
+msgctxt "model:ir.sequence.type,name:sequence_type_wbs_certification"
+msgid "Certification"
+msgstr "Certificación"
+
+msgctxt "model:ir.ui.menu,name:menu_certification"
+msgid "Certifications"
+msgstr "Certificaciones"
+
+msgctxt "model:res.group,name:group_certification"
+msgid "Certification"
+msgstr "Certificación"
+
+msgctxt "model:wbs.certification,name:"
+msgid "WBS Certification"
+msgstr "Certificación Estructura proyecto"
+
+msgctxt "model:wbs.certification.line,name:"
+msgid "WBS Certification Line"
+msgstr "Linea de certificacion WBS"
+
+msgctxt "selection:wbs.certification,state:"
+msgid "Cancel"
+msgstr "Cancelado"
+
+msgctxt "selection:wbs.certification,state:"
+msgid "Confirmed"
+msgstr "Confirmado"
+
+msgctxt "selection:wbs.certification,state:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "selection:wbs.certification,state:"
+msgid "Proposal"
+msgstr "Propuesta"
+
+msgctxt "view:wbs.certification.line:"
+msgid "WBS Certification Line"
+msgstr "Linea de certificacion WBS"
+
+msgctxt "view:wbs.certification.line:"
+msgid "WBS Certification Lines"
+msgstr "Linea de certificacion WBS"
+
+msgctxt "view:wbs.certification:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "view:wbs.certification:"
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgctxt "view:wbs.certification:"
+msgid "Load WBS"
+msgstr "Cargar estructura de proyecto"
+
+msgctxt "view:wbs.certification:"
+msgid "Load this WBS?"
+msgstr "Cargar estructura de proyecto?"
+
+msgctxt "view:wbs.certification:"
+msgid "Proposal"
+msgstr "Proponer"
+
+msgctxt "view:wbs.certification:"
+msgid "Reset to Draft"
+msgstr "Restaurar a borrador"
+
+msgctxt "view:wbs.certification:"
+msgid "WBS Certification"
+msgstr "Certificacion WBS"
+
+msgctxt "view:wbs.certification:"
+msgid "WBS Certifications"
+msgstr "Certificaciones WBS"
+
+msgctxt "view:wbs:"
+msgid "%"
+msgstr "%"

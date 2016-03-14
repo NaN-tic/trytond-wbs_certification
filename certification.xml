@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tryton>
+    <data>
+
+        <record model="res.group" id="group_certification">
+            <field name="name">Certification</field>
+        </record>
+        <record model="res.user-res.group"
+                id="user_admin_group_certification">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="group_certification"/>
+        </record>
+        <record model="res.user-res.group"
+                id="user_trigger_group_certification">
+            <field name="user" ref="res.user_trigger"/>
+            <field name="group" ref="group_certification"/>
+        </record>
+
+        <record model="ir.ui.view" id="certification_view_form">
+            <field name="model">wbs.certification</field>
+            <field name="type">form</field>
+            <field name="name">certification_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="certification_view_list">
+            <field name="model">wbs.certification</field>
+            <field name="type">tree</field>
+            <field name="name">certification_list</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_certification">
+            <field name="name">Certifications</field>
+            <field name="res_model">wbs.certification</field>
+        </record>
+
+        <record model="ir.action.act_window.view"
+                id="act_certification_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="certification_view_list"/>
+            <field name="act_window" ref="act_certification"/>
+        </record>
+        <record model="ir.action.act_window.view"
+                id="act_certification_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="certification_view_form"/>
+            <field name="act_window" ref="act_certification"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+                id="act_certification_domain_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="act_window" ref="act_certification"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+                id="act_certification_domain_proposal">
+            <field name="name">Proposal</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain">[('state', '=', 'proposal')]</field>
+            <field name="act_window" ref="act_certification"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+                id="act_certification_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="act_window" ref="act_certification"/>
+        </record>
+
+        <record model="ir.ui.view" id="certification_line_view_form">
+            <field name="model">wbs.certification.line</field>
+            <field name="type">form</field>
+            <field name="name">certification_line_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="certification_line_view_list">
+            <field name="model">wbs.certification.line</field>
+            <field name="type">tree</field>
+            <field name="field_childs">children</field>
+            <field name="name">certification_line_list</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_certification_line">
+            <field name="name">Certification Line</field>
+            <field name="res_model">wbs.certification.line</field>
+        </record>
+
+        <record model="ir.action.act_window.view"
+                id="act_certification_line_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="certification_line_view_list"/>
+            <field name="act_window" ref="act_certification_line"/>
+        </record>
+        <record model="ir.action.act_window.view"
+                id="act_certification_line_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="certification_line_view_form"/>
+            <field name="act_window" ref="act_certification_line"/>
+        </record>
+
+
+        <!-- Menus -->
+        <menuitem action="act_certification" id="menu_certification"
+            parent="sale.menu_sale" sequence="50"/>
+        <record model="ir.ui.menu-res.group"
+                id="menu_certification_group">
+            <field name="menu" ref="menu_certification"/>
+            <field name="group" ref="group_certification"/>
+        </record>
+
+
+</data>
+</tryton>

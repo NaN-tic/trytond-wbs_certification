@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<data>
+    <xpath expr="/form/separator[@name='description']" position="before">
+        <label name="certified_quantity"/>
+        <field name="certified_quantity"/>
+        <label name="progress"/>
+        <group col="2" id="progress">
+            <field name="progress" factor="100" xexpand="0"/>
+            <label name="progress" string="%" xalign="0.0" xexpand="1"/>
+        </group>
+    </xpath>
+</data>
