@@ -36,6 +36,13 @@ class WorkBreakdownStructure:
                 },
             depends=['type', 'unit_digits']),
         'get_certified_quantity')
+    pending_quantity = fields.Function(fields.Float('Pending Quantity',
+            digits=(16, Eval('unit_digits', 2)),
+            states={
+                'invisible': Eval('type') != 'line',
+                },
+            depends=['type', 'unit_digits']),
+        'get_pending_quantity')
     progress = fields.Function(fields.Numeric('Progress', digits=(5, 4)),
         'get_progress')
 
@@ -65,6 +72,18 @@ class WorkBreakdownStructure:
                     & (certification.state == 'confirmed'),
                     group_by=table_a.id))
             result.update(dict(cursor.fetchall()))
+        return result
+
+    @classmethod
+    def get_pending_quantity(cls, records, name):
+        pool = Pool()
+        Uom = pool.get('product.uom')
+        result = {}
+        for wbs in records:
+            quantity = wbs.quantity - wbs.certified_quantity
+            if wbs.unit:
+                quantity = Uom.round(quantity, wbs.unit.rounding)
+            result[wbs.id] = quantity
         return result
 
     @classmethod

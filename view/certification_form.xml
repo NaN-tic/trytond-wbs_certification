@@ -16,8 +16,8 @@
         colspan="2"/>
     <newline/>
     <notebook>
-        <page name="lines">
-            <field name="lines" colspan="4"/>
+        <page name="lines_tree">
+            <field name="lines_tree" colspan="4"/>
         </page>
     </notebook>
     <group col="3" colspan="4" id="states">

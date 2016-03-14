@@ -2,7 +2,7 @@
 # copyright notices and license terms.
 from trytond.pool import Pool, PoolMeta
 from trytond.model import Workflow, ModelView, ModelSQL, fields
-from trytond.pyson import Bool, Eval
+from trytond.pyson import If, Bool, Eval
 from trytond.transaction import Transaction
 import datetime
 
@@ -30,6 +30,12 @@ class Certification(Workflow, ModelSQL, ModelView):
         depends=['party'])
     lines = fields.One2Many('wbs.certification.line', 'certification',
         'Lines')
+    lines_tree = fields.Function(fields.One2Many('wbs.certification.line',
+            'certification', 'Lines',
+            domain=[
+                ('parent', '=', None),
+                ]),
+        'get_lines_tree', 'set_lines_tree')
     state = fields.Selection([
             ('draft', 'Draft'),
             ('proposal', 'Proposal'),
@@ -97,6 +103,15 @@ class Certification(Workflow, ModelSQL, ModelView):
     def default_invoice_state():
         return 'pending'
 
+    def get_lines_tree(self, name):
+        return [l.id for l in self.lines if not l.parent]
+
+    @classmethod
+    def set_lines_tree(cls, certifications, name, value):
+        cls.write(certifications, {
+                'lines': value,
+                })
+
     @classmethod
     @ModelView.button
     @Workflow.transition('draft')
@@ -133,11 +148,10 @@ class Certification(Workflow, ModelSQL, ModelView):
     def create_lines(self, wbs, parent=None):
         CL = Pool().get('wbs.certification.line')
         for l in wbs.childs:
-            if l.type in ('subtotal', 'total'):
-                continue
             cl = CL()
             cl.certification = self
             cl.wbs = l
+            cl.type = l.type
             cl.parent = parent
             cl.save()
             if l.childs:
@@ -175,48 +189,70 @@ class Certification(Workflow, ModelSQL, ModelView):
         if default is None:
             default = {}
         default['lines'] = []
+        default['lines_tree'] = []
         new_certs = super(Certification, cls).copy(certifications,
             default=default)
         for cert, new_cert in zip(certifications, new_certs):
-            new_default = default.copy()
-            new_default['certification'] = new_cert.id
-            Line.copy(cert.lines, default=new_default)
+            new_default = {
+                'certification': new_cert.id,
+                }
+            Line.copy(cert.lines_tree, default=new_default)
         return new_certs
 
 
 class CertificationLine(ModelSQL, ModelView):
     'WBS Certification Line'
     __name__ = 'wbs.certification.line'
-
     certification = fields.Many2One('wbs.certification', 'Certification',
         required=True, ondelete='CASCADE')
+    party = fields.Function(fields.Many2One('party.party', 'Party'),
+        'on_change_with_party')
+    type = fields.Selection([
+            ('group', 'Group'),
+            ('line', 'Line'),
+            ], 'Type', required=True)
     wbs = fields.Many2One('wbs', 'WBS',
         domain=[
-            ('type', '=', 'line'),
-            ])
+            ('type', '=', Eval('type')),
+            ('party', '=', Eval('party')),
+            ],
+        depends=['type', 'party'])
     wbs_product = fields.Function(fields.Many2One('product.product',
         'Product'), 'get_wbs_field')
     wbs_quantity = fields.Function(fields.Float('WBS Quantity'),
         'get_wbs_field')
+    wbs_pending_quantity = fields.Function(fields.Float(
+            'WBS Pending Quantity'),
+        'get_wbs_field')
     wbs_unit = fields.Function(fields.Many2One('product.uom', 'Unit'),
         'get_wbs_field')
-
-    quantity = fields.Float('Quantity')
-
+    quantity = fields.Float('Quantity',
+        states={
+            'invisible': Eval('type') != 'line',
+            },
+        domain=[
+            If(Bool(Eval('quantity', 0)),
+                ('quantity', '<=', Eval('wbs_pending_quantity', 0)),
+                (),
+                )
+            ],
+        depends=['wbs_pending_quantity', 'type'])
+    wbs_pending_quantity = fields.Function(fields.Float(
+            'WBS Pending Quantity'),
+        'get_wbs_field')
     parent = fields.Many2One('wbs.certification.line', 'Parent', select=True,
         left='left', right='right', ondelete='CASCADE',
         domain=[
             ('certification', '=', Eval('certification')),
-            # compatibility with sale_subchapters
             ],
         depends=['certification'])
-    left = fields.Integer('Left', required=True, select=True)
-    right = fields.Integer('Right', required=True, select=True)
     children = fields.One2Many('wbs.certification.line', 'parent', 'Children',
         domain=[
             ('certification', '=', Eval('certification')),
             ],
         depends=['certification'])
+    left = fields.Integer('Left', required=True, select=True)
+    right = fields.Integer('Right', required=True, select=True)
 
     @staticmethod
     def default_left():
@@ -225,6 +261,14 @@ class CertificationLine(ModelSQL, ModelView):
     @staticmethod
     def default_right():
         return 0
+
+    @staticmethod
+    def default_type():
+        return 'line'
+
+    def on_change_with_party(self, name=None):
+        if self.certification and self.certification.party:
+            return self.certification.party.id
 
     def get_wbs_field(self, name):
         if not self.wbs:
@@ -236,11 +280,10 @@ class CertificationLine(ModelSQL, ModelView):
 
     @classmethod
     def copy(cls, lines, default=None):
-        # TODO: To test
         if default is None:
             default = {}
-        default['wbs'] = None
-        default['children'] = []
+        default.setdefault('quantity')
+        default.setdefault('children', [])
         new_lines = []
         for line in lines:
             new_line, = super(CertificationLine, cls).copy([line], default)

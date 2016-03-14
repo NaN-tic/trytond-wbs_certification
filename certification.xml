@@ -75,8 +75,8 @@
         <record model="ir.ui.view" id="certification_line_view_list">
             <field name="model">wbs.certification.line</field>
             <field name="type">tree</field>
-            <field name="field_childs">children</field>
             <field name="name">certification_line_list</field>
+            <field name="field_childs">children</field>
         </record>
 
         <record model="ir.action.act_window" id="act_certification_line">

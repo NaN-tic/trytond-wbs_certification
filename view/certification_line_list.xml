@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
-<tree string="WBS Certification Lines" editable="top">
-    <field name="certification"/>
+<tree string="WBS Certification Lines" editable="bottom">
+    <field name="type"/>
     <field name="wbs"/>
     <field name="wbs_product"/>
     <field name="wbs_quantity"/>
     <field name="wbs_unit"/>
     <field name="quantity"/>
+    <field name="certification"/>
+    <field name="parent" tree_invisible="1"/>
+    <field name="children" tree_invisible="1"/>
 </tree>
